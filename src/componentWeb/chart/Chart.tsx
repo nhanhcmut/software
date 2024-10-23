@@ -43,21 +43,20 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function ChartAnalyze() {
-  const [dimensions, setDimensions] = useState({
-    width: window.innerWidth * 0.85,
-    height: window.innerHeight * 0.85,
-  });
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    const handleResize = () => {
+    const updateDimensions = () => {
       setDimensions({
-        width: window.innerWidth * 0.5,
-        height: window.innerHeight * 0.5,
+        width: window.innerWidth * 0.85,
+        height: window.innerHeight * 0.85,
       });
     };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    updateDimensions(); // Set initial dimensions
+    window.addEventListener("resize", updateDimensions);
+
+    return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
   return (
