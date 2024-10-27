@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
-
+import Login from "../ui/login/login";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -64,6 +64,10 @@ export default function Navbar() {
             </ul>
           </div>
 
+          <div className="hidden lg:block">
+            <Login />
+          </div>
+
           {/* Mobile menu toggle button */}
           <div className="lg:hidden flex items-center">
             <button
@@ -93,7 +97,7 @@ export default function Navbar() {
 
         {/* Mobile menu with smooth open-close effect */}
         <div
-          className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out transform ${
+          className={`lg:hidden absolute right-0 px-2 w-full rounded-md shadow-md bg-white overflow-hidden transition-all duration-300 ease-in-out transform ${
             isOpen
               ? "max-h-screen opacity-100 translate-y-0"
               : "max-h-0 opacity-0 -translate-y-10"
@@ -141,6 +145,9 @@ export default function Navbar() {
               <a href="/admin/history" className="block px-4 py-2">
                 Lịch sử in
               </a>
+            </li>
+            <li className="block px-4 py-2">
+              <Login />
             </li>
           </ul>
         </div>
