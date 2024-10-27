@@ -2,7 +2,7 @@ export function ListSell() {
   return (
     <div className="bg-yellow-100  p-5 rounded-lg shadow-lg">
       <h1 className="text-2xl font-bold">Thống kê trong ngày</h1>
-      <div className="grid grid-cols-4 gap-4 mt-3">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mt-3">
         <div className="bg-red-200 p-5 rounded-lg shadow-lg">
           <div className="">
             <h1 className=" font-bold">{10000000} vnd</h1>

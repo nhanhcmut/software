@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
-import Router from "next/router";
+import React, { useState } from "react";
 import { usePathname } from "next/navigation";
+
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
   return (
@@ -16,60 +17,59 @@ export default function Navbar() {
               </h2>
             </div>
           </button>
+
+          {/* Desktop menu */}
           <div className="hidden lg:block">
             <ul className="flex space-x-10 text-base font-bold text-black/60 dark:text-white">
               <li
                 className={`hover:underline hover:underline-offset-4 hover:w-fit px-2 py-1 transition-all duration-100 ease-linear 
-                    ${
-                      pathname === "/"
-                        ? "underline underline-offset-2 bg-blue-500  rounded-lg text-white"
-                        : ""
-                    }`}
+                  ${
+                    pathname === "/"
+                      ? "underline underline-offset-2 bg-blue-500 rounded-lg text-white"
+                      : ""
+                  }`}
               >
                 <a href="/">Trang chủ</a>
               </li>
               <li
                 className={`hover:underline hover:underline-offset-4 hover:w-fit px-2 py-1 transition-all duration-100 ease-linear 
-                    ${
-                      pathname === "/admin/management"
-                        ? "underline underline-offset-2 bg-blue-500  rounded-lg text-white"
-                        : ""
-                    }`}
+                  ${
+                    pathname === "/admin/management"
+                      ? "underline underline-offset-2 bg-blue-500 rounded-lg text-white"
+                      : ""
+                  }`}
               >
                 <a href="/admin/management">Quản lý</a>
               </li>
               <li
                 className={`hover:underline hover:underline-offset-4 hover:w-fit px-2 py-1 transition-all duration-100 ease-linear 
-                    ${
-                      pathname === "/admin/analyze"
-                        ? "underline underline-offset-2 bg-blue-500  rounded-lg text-white"
-                        : ""
-                    }`}
+                  ${
+                    pathname === "/admin/analyze"
+                      ? "underline underline-offset-2 bg-blue-500 rounded-lg text-white"
+                      : ""
+                  }`}
               >
                 <a href="/admin/analyze">Thống kê</a>
               </li>
               <li
                 className={`hover:underline hover:underline-offset-4 hover:w-fit px-2 py-1 transition-all duration-100 ease-linear 
-                    ${
-                      pathname === "/admin/history"
-                        ? "underline underline-offset-2 bg-blue-500  rounded-lg text-white"
-                        : ""
-                    }`}
+                  ${
+                    pathname === "/admin/history"
+                      ? "underline underline-offset-2 bg-blue-500 rounded-lg text-white"
+                      : ""
+                  }`}
               >
                 <a href="/admin/history">Lịch sử in</a>
               </li>
             </ul>
           </div>
-          <div className="hidden lg:flex lg:items-center gap-x-2">
-            <button className="flex items-center text-black dark:text-white justify-center px-6 py-2.5 font-semibold">
-              Sign up
-            </button>
-            <button className="flex items-center justify-center rounded-md bg-[#4A3BFF] text-white px-6 py-2.5 font-semibold hover:shadow-lg hover:drop-shadow transition duration-200">
-              Login
-            </button>
-          </div>
-          <div className="flex items-center justify-center lg:hidden">
-            <button className="focus:outline-none text-slate-200 dark:text-white">
+
+          {/* Mobile menu toggle button */}
+          <div className="lg:hidden flex items-center">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="focus:outline-none text-slate-200 dark:text-white"
+            >
               <svg
                 stroke="currentColor"
                 fill="currentColor"
@@ -89,6 +89,60 @@ export default function Navbar() {
               </svg>
             </button>
           </div>
+        </div>
+
+        {/* Mobile menu with smooth open-close effect */}
+        <div
+          className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out transform ${
+            isOpen
+              ? "max-h-screen opacity-100 translate-y-0"
+              : "max-h-0 opacity-0 -translate-y-10"
+          }`}
+        >
+          <ul className="flex flex-col space-y-3 text-base font-bold text-black/60 dark:text-white">
+            <li
+              className={`${
+                pathname === "/" ? "bg-blue-500 rounded-lg text-white" : ""
+              }`}
+            >
+              <a href="/" className="block px-4 py-2">
+                Trang chủ
+              </a>
+            </li>
+            <li
+              className={`${
+                pathname === "/admin/management"
+                  ? "bg-blue-500 rounded-lg text-white"
+                  : ""
+              }`}
+            >
+              <a href="/admin/management" className="block px-4 py-2">
+                Quản lý
+              </a>
+            </li>
+            <li
+              className={`${
+                pathname === "/admin/analyze"
+                  ? "bg-blue-500 rounded-lg text-white"
+                  : ""
+              }`}
+            >
+              <a href="/admin/analyze" className="block px-4 py-2">
+                Thống kê
+              </a>
+            </li>
+            <li
+              className={`${
+                pathname === "/admin/history"
+                  ? "bg-blue-500 rounded-lg text-white"
+                  : ""
+              }`}
+            >
+              <a href="/admin/history" className="block px-4 py-2">
+                Lịch sử in
+              </a>
+            </li>
+          </ul>
         </div>
       </nav>
     </div>

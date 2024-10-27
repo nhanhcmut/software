@@ -40,6 +40,10 @@ const chartConfig = {
     label: "Desktop",
     color: "hsl(var(--chart-1))",
   },
+  mobile: {
+    label: "Mobile",
+    color: "hsl(var(--chart-2))",
+  },
 } satisfies ChartConfig;
 
 export function ChartAnalyze() {
@@ -48,8 +52,8 @@ export function ChartAnalyze() {
   useEffect(() => {
     const updateDimensions = () => {
       setDimensions({
-        width: window.innerWidth * 0.85,
-        height: window.innerHeight * 0.85,
+        width: window.innerWidth > 600 ? 600 : 350,
+        height: window.innerWidth > 600 ? 350 : 200,
       });
     };
 
@@ -60,31 +64,34 @@ export function ChartAnalyze() {
   }, []);
 
   return (
-    <Card className="h-full ">
+    <Card className="h-full w-full">
       <CardHeader>
         <CardTitle>Doanh thu từng tháng 2024</CardTitle>
       </CardHeader>
-      <CardContent className="">
-        <ChartContainer config={chartConfig}>
-          <BarChart
-            width={dimensions.width * 0.5}
-            height={dimensions.height * 0.5}
-            data={chartData}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8} />
-          </BarChart>
+      <CardContent className="flex justify-center items-center h-full w-full">
+        <ChartContainer config={chartConfig} className="w-full">
+          <div className="relative w-full ">
+            <BarChart
+              width={dimensions.width}
+              height={dimensions.height}
+              data={chartData}
+              className="w-full h-full"
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => value.slice(0, 3)}
+              />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent hideLabel />}
+              />
+              <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8} />
+            </BarChart>
+          </div>
         </ChartContainer>
       </CardContent>
     </Card>

@@ -12,59 +12,7 @@ const Footer = () => {
                 <a className="font-semibold dark:text-white">the enthusiasm</a>{" "}
                 of our team:
               </div>
-              <div className="grid grid-cols-5 gap-3">
-                <div className="col-span-1 px-5 pb-2">
-                  <div className="flex items-center gap-4 pb-3 pt-2">
-                    <Image
-                      width={32}
-                      height={32}
-                      className="h-10 w-10 rounded-full"
-                      src="/image/chiiu.jpg"
-                      alt=""
-                    />
-                    <div className="font-medium dark:text-white">
-                      <div>Thanh Nhã</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4 pb-3 pt-2">
-                    <Image
-                      width={32}
-                      height={32}
-                      className="h-10 w-10 rounded-full"
-                      src="/image/chiiu.jpg"
-                      alt=""
-                    />
-                    <div className="font-medium dark:text-white">
-                      <div>Thanh Nhã</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-span-1 px-5 pb-2">
-                  <div className="flex items-center gap-4 pb-3 pt-2">
-                    <Image
-                      width={32}
-                      height={32}
-                      className="h-10 w-10 rounded-full"
-                      src="/image/chiiu.jpg"
-                      alt=""
-                    />
-                    <div className="font-medium dark:text-white">
-                      <div>Thanh Nhã</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4 pb-3 pt-2">
-                    <Image
-                      width={32}
-                      height={32}
-                      className="h-10 w-10 rounded-full"
-                      src="/image/chiiu.jpg"
-                      alt=""
-                    />
-                    <div className="font-medium dark:text-white">
-                      <div>Thanh Nhã</div>
-                    </div>
-                  </div>
-                </div>
+              <div className="grid grid-cols-3 gap-3">
                 <div className="col-span-1 px-5 pb-2">
                   <div className="flex items-center gap-4 pb-3 pt-2">
                     <Image
