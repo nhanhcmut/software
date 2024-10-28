@@ -294,9 +294,9 @@ export default function ListStudent() {
   return (
     <div className="relative w-full md:w-2/3 ">
       <div className="flex place-content-between gap-2">
-        <h1 className="text-lg font-bold py-2">Thông tin máy in</h1>
+        <h1 className="text-lg font-bold py-2">Lịch sử in</h1>
         <button className="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-1 px-2 rounded">
-          Thêm máy in
+          Xem báo cáo
         </button>
       </div>
       {openInfo && studentInfo && (

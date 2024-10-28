@@ -1,5 +1,4 @@
-export interface PrinterItemInterface {
-  id: string;
+export interface AddPrinterInterface {
   status: string;
   manufacturer: string;
   model: string;
@@ -7,5 +6,4 @@ export interface PrinterItemInterface {
   room: string;
   building: string;
   type: string;
-  onClick: () => void;
 }

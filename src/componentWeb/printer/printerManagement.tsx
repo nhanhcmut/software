@@ -1,96 +1,29 @@
 "use client";
 import PrinterItem from "./printerItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PrinterItemInterface } from "./interface/printerItemInterface";
-const printerListAPI: PrinterItemInterface[] = [
-  {
-    id: 1,
-    name: "Printer A",
-    status: "Online",
-    paperCount: 100,
-    rating: 4.5,
-  },
-  {
-    id: 2,
-    name: "Printer B",
-    status: "Offline",
-    paperCount: 50,
-    rating: 3.8,
-  },
-  {
-    id: 3,
-    name: "Printer C",
-    status: "Online",
-    paperCount: 200,
-    rating: 4.2,
-  },
-  {
-    id: 4,
-    name: "Printer D",
-    status: "Maintenance",
-    paperCount: 0,
-    rating: 4.0,
-  },
-  {
-    id: 5,
-    name: "Printer E",
-    status: "Online",
-    paperCount: 150,
-    rating: 4.7,
-  },
-  {
-    id: 6,
-    name: "Printer F",
-    status: "Offline",
-    paperCount: 30,
-    rating: 3.5,
-  },
-  {
-    id: 7,
-    name: "Printer G",
-    status: "Online",
-    paperCount: 180,
-    rating: 4.3,
-  },
-  {
-    id: 8,
-    name: "Printer H",
-    status: "Maintenance",
-    paperCount: 0,
-    rating: 4.1,
-  },
-  {
-    id: 9,
-    name: "Printer I",
-    status: "Online",
-    paperCount: 250,
-    rating: 4.9,
-  },
-  {
-    id: 10,
-    name: "Printer J",
-    status: "Offline",
-    paperCount: 40,
-    rating: 3.7,
-  },
-  {
-    id: 11,
-    name: "Printer K",
-    status: "Online",
-    paperCount: 220,
-    rating: 4.4,
-  },
-  {
-    id: 12,
-    name: "Printer L",
-    status: "Maintenance",
-    paperCount: 0,
-    rating: 4.2,
-  },
-];
+import AddPrint from "./printAdd";
+import PrintConfig from "./printerConfig";
 export default function PrinterManagement() {
-  const [printerList, setPrinterList] =
-    useState<PrinterItemInterface[]>(printerListAPI);
+  const [printerList, setPrinterList] = useState<PrinterItemInterface[]>([]);
+
+  useEffect(() => {
+    const apiUrl = process.env.NEXT_API_URL;
+    fetch(`${apiUrl}/printers`)
+      .then((response) => response.json())
+      .then((data) => {
+        setPrinterList(data.data);
+      });
+  }, []);
+
+  // Adjust Print
+  const [isConfigPrint, setIsConfigPrint] = useState(false);
+
+  // Add printer
+
+  const [isAddPrint, setIsAddPrint] = useState(false);
+
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(3);
 
@@ -121,7 +54,8 @@ export default function PrinterManagement() {
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentItems = printerList.slice(startIndex, endIndex);
+  const currentItems =
+    printerList.length > 0 ? printerList.slice(startIndex, endIndex) : [];
 
   const renderPageNumbers = () => {
     const pageNumbers = [];
@@ -172,13 +106,24 @@ export default function PrinterManagement() {
   };
 
   return (
-    <div>
-      <div className="flex place-content-between gap-2">
+    <>
+      <div className="flex  gap-2">
         <h1 className="text-lg font-bold py-2">Thông tin máy in</h1>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-1 px-2 rounded">
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-1 px-2 rounded"
+          onClick={() => setIsAddPrint(!isAddPrint)}
+        >
           Thêm máy in
         </button>
       </div>
+      {isAddPrint && (
+        <AddPrint
+          onClose={() => {
+            setIsAddPrint(false);
+          }}
+        />
+      )}
+
       <div className="flex justify-between items-center mt-2">
         <div>
           <label htmlFor="itemsPerPage" className="mr-2">
@@ -196,16 +141,38 @@ export default function PrinterManagement() {
           </select>
         </div>
       </div>
-      <div className="grid lg:grid-cols-3 gap-4 mt-2">
-        {currentItems.map((printer, i) => (
-          <PrinterItem
-            key={startIndex + i}
-            id={printer.id}
-            name={printer.name}
-            status={printer.status}
-            paperCount={printer.paperCount}
-            rating={printer.rating}
-          />
+      <div className=" grid lg:grid-cols-3 gap-4 mt-2">
+        {currentItems.map((printer, key) => (
+          <>
+            <PrinterItem
+              key={key}
+              id={printer.id}
+              building={printer.building}
+              description={printer.description}
+              manufacturer={printer.manufacturer}
+              model={printer.model}
+              room={printer.room}
+              status={printer.status}
+              type={printer.type}
+              onClick={() => setIsConfigPrint(!isConfigPrint)}
+            />
+            {isConfigPrint && (
+              <PrintConfig
+                key={key}
+                id={printer.id}
+                building={printer.building}
+                description={printer.description}
+                manufacturer={printer.manufacturer}
+                model={printer.model}
+                room={printer.room}
+                status={printer.status}
+                type={printer.type}
+                onClose={() => {
+                  setIsConfigPrint(false);
+                }}
+              />
+            )}
+          </>
         ))}
       </div>
       <div className="flex justify-center mt-4">
@@ -230,6 +197,6 @@ export default function PrinterManagement() {
           onChange={(e) => setCurrentPage(Number(e.target.value))}
         />
       </div>
-    </div>
+    </>
   );
 }

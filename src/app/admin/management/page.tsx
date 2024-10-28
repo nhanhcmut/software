@@ -1,6 +1,8 @@
-import PrinterManagement from "@/componentWeb/printer/printerManagement"
+import PrinterManagement from "@/componentWeb/printer/printerManagement";
 export default function Home() {
-  return     <div className="flex gap-5 flex-col px-10 place-items-center">
-    <PrinterManagement />
-</div>
+  return (
+    <div className="flex gap-5 flex-col px-10 place-items-center w-full">
+      <PrinterManagement />
+    </div>
+  );
 }
