@@ -1,19 +1,41 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { PrinterItemInterface } from "./interface/printerItemInterface";
 export interface printerConfigInterface {
   id: string;
-  status: string;
-  manufacturer: string;
-  model: string;
-  description: string;
-  room: string;
-  building: string;
-  type: string;
   onClose: () => void;
 }
+export interface printerUpdateInterface {
+  status?: string;
+  manufacturer?: string;
+  model?: string;
+  description?: string;
+  room?: string;
+  building?: string;
+}
 export default function PrintConfig(printer: printerConfigInterface) {
-  const Url = process.env.NEXT_PUBLIC_URL;
+  const [printerObj, setprinterObj] = useState<PrinterItemInterface>(
+    {} as PrinterItemInterface
+  );
 
+  const fetchData = async () => {
+    const apiUrl = process.env.NEXT_PUBLIC_URL;
+    try {
+      const response = await fetch(apiUrl + "/printers/" + printer.id);
+      console.log(response);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setprinterObj(data.data);
+    } catch (error) {
+      console.error("Error fetching printers:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -29,6 +51,22 @@ export default function PrintConfig(printer: printerConfigInterface) {
   const handleAdjust = (e: any) => {
     e.preventDefault();
     const form = e.target;
+
+    const data: printerUpdateInterface = {
+      status: form.status.value,
+    };
+    fetch(`${process.env.NEXT_PUBLIC_URL}/printers/${printerObj.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        printer.onClose();
+      });
   };
 
   return (
@@ -45,14 +83,14 @@ export default function PrintConfig(printer: printerConfigInterface) {
         </button>
         <div className="place-items-center px-7 py-2 w-full">
           <h1 className="text-md font-bold py-2">Thông tin máy in</h1>
-          <p className="text-md font-bold">ID: {printer.id}</p>
-          <p className="text-md font-bold">Máy in: {printer.manufacturer}</p>
-          <p className="text-md font-bold">Model: {printer.model}</p>
-          <p className="text-md font-bold">Trạng thái: {printer.status}</p>
-          <p className="text-md font-bold">Mô tả: {printer.description}</p>
-          <p className="text-md font-bold">Phòng: {printer.room}</p>
-          <p className="text-md font-bold">Tòa nhà: {printer.building}</p>
-          <p className="text-md font-bold">Loại máy in: {printer.type}</p>
+          <p className="text-md font-bold">ID: {printerObj.id}</p>
+          <p className="text-md font-bold">Máy in: {printerObj.manufacturer}</p>
+          <p className="text-md font-bold">Model: {printerObj.model}</p>
+          <p className="text-md font-bold">Trạng thái: {printerObj.status}</p>
+          <p className="text-md font-bold">Mô tả: {printerObj.description}</p>
+          <p className="text-md font-bold">Phòng: {printerObj.room}</p>
+          <p className="text-md font-bold">Tòa nhà: {printerObj.building}</p>
+          <p className="text-md font-bold">Loại máy in: {printerObj.type}</p>
           <button
             className="mt-2 bg-blue-500 hover:bg-blue-700 text-white text-xs font-bold py-1 px-3 rounded"
             onClick={handleAdjust}

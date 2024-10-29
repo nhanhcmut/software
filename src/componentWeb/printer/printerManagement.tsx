@@ -6,14 +6,23 @@ import AddPrint from "./printAdd";
 import PrintConfig from "./printerConfig";
 export default function PrinterManagement() {
   const [printerList, setPrinterList] = useState<PrinterItemInterface[]>([]);
+  const fetchData = async () => {
+    const apiUrl = process.env.NEXT_PUBLIC_URL;
+    try {
+      const response = await fetch(apiUrl + "/printers");
+      console.log(response);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setPrinterList(data.data);
+    } catch (error) {
+      console.error("Error fetching printers:", error);
+    }
+  };
 
   useEffect(() => {
-    const apiUrl = process.env.NEXT_API_URL;
-    fetch(`${apiUrl}/printers`)
-      .then((response) => response.json())
-      .then((data) => {
-        setPrinterList(data.data);
-      });
+    fetchData();
   }, []);
 
   // Adjust Print
@@ -160,13 +169,6 @@ export default function PrinterManagement() {
               <PrintConfig
                 key={key}
                 id={printer.id}
-                building={printer.building}
-                description={printer.description}
-                manufacturer={printer.manufacturer}
-                model={printer.model}
-                room={printer.room}
-                status={printer.status}
-                type={printer.type}
                 onClose={() => {
                   setIsConfigPrint(false);
                 }}
