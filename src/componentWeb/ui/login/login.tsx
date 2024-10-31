@@ -25,7 +25,7 @@ export default function Login() {
       >
         <ul className={`${isOpen ? "block" : "hidden"}`}>
           <li>
-            <a href="/signin" className="block px-4 py-2 hover:bg-gray-100">
+            <a href="/user" className="block px-4 py-2 hover:bg-gray-100">
               Sign in
             </a>
           </li>
