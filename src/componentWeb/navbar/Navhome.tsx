@@ -28,15 +28,7 @@ export default function Navbar() {
               >
                 <a href="/user/signin">Đăng nhập</a>
               </li>
-              <li
-                className={`hover:underline hover:underline-offset-4 hover:w-fit px-2 py-1 transition-all duration-100 ease-linear 
-                  ${pathname === "/user/signup"
-                    ? "underline underline-offset-2 bg-blue-500 rounded-lg text-white"
-                    : ""
-                  }`}
-              >
-                <a href="/user/signup">Đăng kí </a>
-              </li>
+            
             </ul>
           </div>
 
@@ -83,16 +75,7 @@ export default function Navbar() {
                Đăng nhập
               </a>
             </li>
-            <li
-              className={`${pathname === "/user/signup"
-                  ? "bg-blue-500 rounded-lg text-white"
-                  : ""
-                }`}
-            >
-              <a href="/user/signup" className="block px-4 py-2">
-              Đăng ký
-              </a>
-            </li>
+        
           </ul>
         </div>
       </nav>
