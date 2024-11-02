@@ -35,13 +35,13 @@ export default function Home() {
   };
 
   return (
-    <div className="flex gap-5 justify-center items-center px-10 place-items-center w-full">
-      <div className="flex flex-col md:flex-row justify-center items-center w-full flex-wrap min-h-full relative">
+    <div className="flex gap-5 justify-center items-center px-5 place-items-center w-full">
+      <div className="flex flex-col md:flex-row justify-center items-center w-full flex-wrap min-h-screen relative">
         <div className="justify-center items-center flex-none">
           <div className="w-full">
             <h1 className="capitalize text-[#3751FE] font-bold text-center md:text-4xl text-2xl font-sans ">chào mừng bạn đã trở lại</h1>
             <h1 className="capitalize text-[#3751FE] font-bold text-center md:text-xl text-xs font-sans pt-4 ">hãy nhập thông tin tài khoản của bạn</h1>
-            <div className="flex items-center justify-center pt-[10px]"> 
+            <div className="flex items-center justify-center pt-[10px]">
               <Image src="/image/logobk.png" alt="logo" width={120} height={120} className="block" />
             </div>
           </div>
@@ -95,7 +95,7 @@ export default function Home() {
           <h1 className="mt-3 md:text-2xl text-xl font-bold text-red-700 ">LƯU Ý:</h1>
           <span className="italic">Bạn cần dùng tài khoản HCMUT để đăng nhập</span>
         </div>
-        <div className="flex md:pl-[160px] justify-center items-center md:static md:left-[50%] left-[30%]   ">
+        <div className="flex md:pl-[130px] justify-center items-center md:static md:left-[50%] left-[30%]   ">
           <Image src="/image/anh.png" alt="hinh" width={500} height={600} className="block" />
         </div>
       </div>

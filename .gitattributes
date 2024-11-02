@@ -1,6 +1,4 @@
-* text=auto
-*.ts text eol=lf
-*.tsx text eol=lf
+
 # Set the default behavior, in case people don't have core.autocrlf set.
 * text=auto
 
