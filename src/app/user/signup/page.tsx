@@ -57,8 +57,8 @@ export default function Home() {
   };
 
   return (
-    <div className="flex gap-5 px-10 w-full h-screen">
-      <div className="flex-grow flex justify-center items-start  pt-[80px]">
+    <div className="flex gap-5 px-10 w-full">
+      <div className="flex-grow flex justify-center md:items-start items-center pt-[80px]  ">
         <div className="w-full max-w-md bg-white p-8 rounded shadow-md">
           <h1 className=" capitalize text-2xl font-bold text-center mb-4">
             đăng ký tài khoản
